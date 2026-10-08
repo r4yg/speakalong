@@ -1,0 +1,532 @@
+{
+ "version": 1,
+ "levels": [
+  {
+   "id": 1,
+   "name": "Level 0",
+   "index": 0
+  },
+  {
+   "id": 2,
+   "name": "Level 1",
+   "index": 1
+  },
+  {
+   "id": 3,
+   "name": "Level 2",
+   "index": 2
+  },
+  {
+   "id": 4,
+   "name": "Level 3",
+   "index": 3
+  },
+  {
+   "id": 5,
+   "name": "Level 4",
+   "index": 4
+  },
+  {
+   "id": 6,
+   "name": "Level 5",
+   "index": 5
+  },
+  {
+   "id": 7,
+   "name": "Level 6",
+   "index": 6
+  }
+ ],
+ "books": [
+  {
+   "id": 1,
+   "title": "The Fifteenth Character",
+   "levelId": 1,
+   "path": "level_0/01_fifteenth_character",
+   "cover": "01-the-fifteenth-character.png",
+   "captions": 173,
+   "words": 1482,
+   "minutes": 18
+  },
+  {
+   "id": 2,
+   "title": "Red Roses",
+   "levelId": 1,
+   "path": "level_0/02_red_roses",
+   "cover": "02-red-roses.png",
+   "captions": 202,
+   "words": 1628,
+   "minutes": 20
+  },
+  {
+   "id": 3,
+   "title": "Police TV",
+   "levelId": 1,
+   "path": "level_0/03_police_tv",
+   "cover": "03-police-tv.png",
+   "captions": 212,
+   "words": 1588,
+   "minutes": 17
+  },
+  {
+   "id": 4,
+   "title": "Drive into Danger",
+   "levelId": 1,
+   "path": "level_0/04_drive_into_danger",
+   "cover": "04-drive-into-danger.png",
+   "captions": 162,
+   "words": 1513,
+   "minutes": 22
+  },
+  {
+   "id": 5,
+   "title": "Jane Eyre",
+   "levelId": 2,
+   "path": "level_1/01_jane_eyre",
+   "cover": "05-jane-eyre.png",
+   "captions": 955,
+   "words": 8280,
+   "minutes": 78
+  },
+  {
+   "id": 6,
+   "title": "Little Lord Fauntleroy",
+   "levelId": 2,
+   "path": "level_1/02_little_lord_fauntleroy",
+   "cover": "06-little-lord-fauntleroy.png",
+   "captions": 671,
+   "words": 7291,
+   "minutes": 79
+  },
+  {
+   "id": 7,
+   "title": "Mr Bean in town",
+   "levelId": 2,
+   "path": "level_1/03_mr_bean_in_town",
+   "cover": "07-mr-bean-in-town.png",
+   "captions": 493,
+   "words": 4312,
+   "minutes": 32
+  },
+  {
+   "id": 8,
+   "title": "Aladdin and the Enchanted Lamp",
+   "levelId": 2,
+   "path": "level_1/04_aladdin_and_the_enchanted_lamp",
+   "cover": "08-aladdin-and-the-enchanted-lamp.png",
+   "captions": 470,
+   "words": 5272,
+   "minutes": 58
+  },
+  {
+   "id": 9,
+   "title": "Love or Money",
+   "levelId": 2,
+   "path": "level_1/05_love_or_money",
+   "cover": "09-love-or-money.png",
+   "captions": 670,
+   "words": 5995,
+   "minutes": 72
+  },
+  {
+   "id": 10,
+   "title": "White Death",
+   "levelId": 2,
+   "path": "level_1/06_white_death",
+   "cover": "10-white-death.png",
+   "captions": 723,
+   "words": 6407,
+   "minutes": 76
+  },
+  {
+   "id": 11,
+   "title": "Swan Lake",
+   "levelId": 3,
+   "path": "level_2/01_swan_lake",
+   "cover": "11-swan-lake.png",
+   "captions": 491,
+   "words": 5543,
+   "minutes": 41
+  },
+  {
+   "id": 12,
+   "title": "Logan's Choice",
+   "levelId": 3,
+   "path": "level_2/02_logan_choice",
+   "cover": "12-logan-s-choice.png",
+   "captions": 833,
+   "words": 9533,
+   "minutes": 69
+  },
+  {
+   "id": 13,
+   "title": "Seven Stories of Mystery and Horror",
+   "levelId": 3,
+   "path": "level_2/03_seven_stories_of_mistery_and_horror",
+   "cover": "13-seven-stories-of-mystery-and-horror.png",
+   "captions": 1267,
+   "words": 13148,
+   "minutes": 107
+  },
+  {
+   "id": 14,
+   "title": "The Mill on the Floss",
+   "levelId": 3,
+   "path": "level_2/04_the_mill_on_the_floss",
+   "cover": "14-the-mill-on-the-floss.png",
+   "captions": 740,
+   "words": 6420,
+   "minutes": 61
+  },
+  {
+   "id": 15,
+   "title": "The Princess Diaries 1",
+   "levelId": 3,
+   "path": "level_2/05_the_princess_dairies_1",
+   "cover": "15-the-princess-diaries-1.png",
+   "captions": 1251,
+   "words": 12421,
+   "minutes": 93
+  },
+  {
+   "id": 16,
+   "title": "The Princess Diaries 2",
+   "levelId": 3,
+   "path": "level_2/06_the_princess_dairies_2",
+   "cover": "16-the-princess-diaries-2.png",
+   "captions": 1264,
+   "words": 12842,
+   "minutes": 93
+  },
+  {
+   "id": 17,
+   "title": "Love Among the Haystacks",
+   "levelId": 3,
+   "path": "level_2/07_love_among_the_haystacks",
+   "cover": "17-love-among-the-haystacks.png",
+   "captions": 704,
+   "words": 7055,
+   "minutes": 66
+  },
+  {
+   "id": 18,
+   "title": "World Wonders",
+   "levelId": 3,
+   "path": "level_2/08_world_wonders",
+   "cover": "18-world-wonders.png",
+   "captions": 528,
+   "words": 6886,
+   "minutes": 77
+  },
+  {
+   "id": 19,
+   "title": "Death in the Freezer",
+   "levelId": 3,
+   "path": "level_2/09_death_in_the_freezer",
+   "cover": "19-death-in-the-freezer.png",
+   "captions": 561,
+   "words": 6201,
+   "minutes": 63
+  },
+  {
+   "id": 20,
+   "title": "Ethan Frome",
+   "levelId": 4,
+   "path": "level_3/01_ethan_frome",
+   "cover": "20-ethan-frome.png",
+   "captions": 892,
+   "words": 10682,
+   "minutes": 102
+  },
+  {
+   "id": 21,
+   "title": "The Woman in Black",
+   "levelId": 4,
+   "path": "level_3/02_woman_in_black",
+   "cover": "21-the-woman-in-black.png",
+   "captions": 1326,
+   "words": 10830,
+   "minutes": 91
+  },
+  {
+   "id": 22,
+   "title": "The Call of the Wild",
+   "levelId": 4,
+   "path": "level_3/03_call_of_the_wild",
+   "cover": "22-the-call-of-the-wild.png",
+   "captions": 847,
+   "words": 10974,
+   "minutes": 99
+  },
+  {
+   "id": 23,
+   "title": "Love Story",
+   "levelId": 4,
+   "path": "level_3/04_love_story",
+   "cover": "23-love-story.png",
+   "captions": 956,
+   "words": 8764,
+   "minutes": 80
+  },
+  {
+   "id": 24,
+   "title": "The Secret Garden",
+   "levelId": 4,
+   "path": "level_3/05_secret_garden",
+   "cover": "24-the-secret-garden.png",
+   "captions": 960,
+   "words": 10700,
+   "minutes": 112
+  },
+  {
+   "id": 25,
+   "title": "Black Beauty",
+   "levelId": 5,
+   "path": "level_4/01_black_beauty",
+   "cover": "25-black-beauty.png",
+   "captions": 1138,
+   "words": 15431,
+   "minutes": 139
+  },
+  {
+   "id": 26,
+   "title": "Meet me in Istanbul",
+   "levelId": 5,
+   "path": "level_4/02_meet_me_in_istambul",
+   "cover": "26-meet-me-in-istanbul.png",
+   "captions": 1323,
+   "words": 10749,
+   "minutes": 94
+  },
+  {
+   "id": 27,
+   "title": "Far from the Madding Crowd",
+   "levelId": 5,
+   "path": "level_4/03_far_from_the_madding_crowd",
+   "cover": "27-far-from-the-madding-crowd.png",
+   "captions": 1925,
+   "words": 18706,
+   "minutes": 153
+  },
+  {
+   "id": 28,
+   "title": "Diamonds Are Forever",
+   "levelId": 5,
+   "path": "level_4/04_diamonds_are_forever",
+   "cover": "28-diamonds-are-forever.png",
+   "captions": 1695,
+   "words": 17868,
+   "minutes": 120
+  },
+  {
+   "id": 29,
+   "title": "Lorna Doone",
+   "levelId": 5,
+   "path": "level_4/05_lorna_doone",
+   "cover": "29-lorna-doone.png",
+   "captions": 1211,
+   "words": 17132,
+   "minutes": 137
+  },
+  {
+   "id": 30,
+   "title": "Forget to Remember",
+   "levelId": 6,
+   "path": "level_5/01_forget_to_remember",
+   "cover": "30-forget-to-remember.png",
+   "captions": 1926,
+   "words": 24473,
+   "minutes": 180
+  },
+  {
+   "id": 31,
+   "title": "Bridget Jones's Diary",
+   "levelId": 6,
+   "path": "level_5/02_bridget_jones_diary",
+   "cover": "31-bridget-jones-s-diary.png",
+   "captions": 1766,
+   "words": 17739,
+   "minutes": 155
+  },
+  {
+   "id": 32,
+   "title": "The Sign of Four",
+   "levelId": 6,
+   "path": "level_5/03_the_sign_of_four",
+   "cover": "32-the-sign-of-four.png",
+   "captions": 1226,
+   "words": 11490,
+   "minutes": 82
+  },
+  {
+   "id": 33,
+   "title": "Sense and Sensibility",
+   "levelId": 6,
+   "path": "level_5/04_sense_and_sensibility",
+   "cover": "33-sense-and-sensibility.png",
+   "captions": 2273,
+   "words": 27915,
+   "minutes": 192
+  },
+  {
+   "id": 34,
+   "title": "The Pearl",
+   "levelId": 6,
+   "path": "level_5/05_the_pearl",
+   "cover": "34-the-pearl.png",
+   "captions": 1535,
+   "words": 18656,
+   "minutes": 141
+  },
+  {
+   "id": 35,
+   "title": "The Space Invaders",
+   "levelId": 6,
+   "path": "level_5/06_the_space_invaders",
+   "cover": "35-the-space-invaders.png",
+   "captions": 1013,
+   "words": 10620,
+   "minutes": 70
+  },
+  {
+   "id": 36,
+   "title": "The Riddle of the Sands",
+   "levelId": 6,
+   "path": "level_5/07_the_riddle_of_the_sands",
+   "cover": "36-the-riddle-of-the-sands.png",
+   "captions": 1849,
+   "words": 22925,
+   "minutes": 144
+  },
+  {
+   "id": 37,
+   "title": "The Age of Innocence",
+   "levelId": 6,
+   "path": "level_5/08_the_age_of_innocense",
+   "cover": "37-the-age-of-innocence.png",
+   "captions": 1881,
+   "words": 24823,
+   "minutes": 168
+  },
+  {
+   "id": 38,
+   "title": "The Great Gatsby",
+   "levelId": 6,
+   "path": "level_5/09_the_great_getsby",
+   "cover": "38-the-great-gatsby.png",
+   "captions": 1255,
+   "words": 11711,
+   "minutes": 79
+  },
+  {
+   "id": 39,
+   "title": "Emma",
+   "levelId": 6,
+   "path": "level_5/10_emma",
+   "cover": "39-emma.png",
+   "captions": 2609,
+   "words": 27193,
+   "minutes": 209
+  },
+  {
+   "id": 40,
+   "title": "Live and Let Die",
+   "levelId": 6,
+   "path": "level_5/11_live_and_let_die",
+   "cover": "40-live-and-let-die.png",
+   "captions": 1728,
+   "words": 19242,
+   "minutes": 142
+  },
+  {
+   "id": 41,
+   "title": "Doctor No",
+   "levelId": 6,
+   "path": "level_5/12_doctor_no",
+   "cover": "41-dr-no.png",
+   "captions": 2246,
+   "words": 24992,
+   "minutes": 151
+  },
+  {
+   "id": 42,
+   "title": "East of Eden",
+   "levelId": 7,
+   "path": "level_6/01_east_of_eden",
+   "cover": "42-east-of-eden.png",
+   "captions": 2923,
+   "words": 30928,
+   "minutes": 232
+  },
+  {
+   "id": 43,
+   "title": "Brave New World",
+   "levelId": 7,
+   "path": "level_6/02_brave_new_world",
+   "cover": "43-brave-new-world.png",
+   "captions": 2635,
+   "words": 35355,
+   "minutes": 278
+  },
+  {
+   "id": 44,
+   "title": "The Woman in White",
+   "levelId": 7,
+   "path": "level_6/03_a_woman_in_white",
+   "cover": "44-the-woman-in-white.png",
+   "captions": 2481,
+   "words": 31867,
+   "minutes": 231
+  },
+  {
+   "id": 45,
+   "title": "Tess of the d’Urbervilles",
+   "levelId": 7,
+   "path": "level_6/04_tess_of_the_durbervilles",
+   "cover": "45-tess-of-the-d-urbervilles.png",
+   "captions": 3005,
+   "words": 33062,
+   "minutes": 234
+  },
+  {
+   "id": 46,
+   "title": "Great Expectations",
+   "levelId": 7,
+   "path": "level_6/05_great_expectations",
+   "cover": "46-great-expectations.png",
+   "captions": 2043,
+   "words": 20044,
+   "minutes": 145
+  },
+  {
+   "id": 47,
+   "title": "L. A. Movie",
+   "levelId": 7,
+   "path": "level_6/06_l_a_movie",
+   "cover": "47-l-a-movie.png",
+   "captions": 2527,
+   "words": 26287,
+   "minutes": 174
+  },
+  {
+   "id": 48,
+   "title": "Pride and Prejudice",
+   "levelId": 7,
+   "path": "level_6/07_pride_and_perjudice",
+   "cover": "48-pride-and-prejudice.png",
+   "captions": 2244,
+   "words": 29493,
+   "minutes": 193
+  },
+  {
+   "id": 49,
+   "title": "Rebecca",
+   "levelId": 7,
+   "path": "level_6/08_rebecca",
+   "cover": "49-rebecca.png",
+   "captions": 2947,
+   "words": 32062,
+   "minutes": 197
+  }
+ ]
+}
