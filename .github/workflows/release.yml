@@ -24,6 +24,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run fetch-audio
       - run: npm run build
       - name: Package and publish
         run: npx electron-builder --publish always

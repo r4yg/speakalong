@@ -1,0 +1,36 @@
+name: Build audio
+
+# One-off job that packs the original per-line MP3 files into one Opus file per book
+# and publishes them as assets of the `audio-v1` release. The installers bundle these
+# files, so the app never streams audio.
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: Base URL of the original media (expects audio/<book path>/<n>.mp3)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: python3 scripts/download_media.py /tmp/media "${{ inputs.source }}"
+      - run: python3 scripts/build_audio.py /tmp/media --jobs 4
+      - name: Publish audio release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view audio-v1 >/dev/null 2>&1 || gh release create audio-v1 --title "Book audio v1" \
+            --notes "Audio for the 49 books (one mono Opus file per book). Bundled into the app installers; downloaded by \`npm run fetch-audio\`." --latest=false
+          gh release upload audio-v1 public/audio/*.webm --clobber
+      - name: Upload line timings
+        uses: actions/upload-artifact@v4
+        with:
+          name: book-timings
+          path: public/content/books/

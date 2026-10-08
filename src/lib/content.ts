@@ -11,13 +11,10 @@ export type Book = {
   minutes: number;
 };
 
-export type Caption = { n: number; en: string; es: string; d: number };
+/** n: line number, en/es: text, d: nominal duration, s/e: segment in the book's audio file (seconds). */
+export type Caption = { n: number; en: string; es: string; d: number; s?: number; e?: number };
 
 export type Catalog = { version: number; levels: Level[]; books: Book[] };
-
-export const MEDIA_BASE_URL = (
-  import.meta.env.VITE_MEDIA_BASE_URL || 'https://speakalone.s3.us-east-1.amazonaws.com'
-).replace(/\/$/, '');
 
 // CEFR equivalent for each level index (0..6).
 export const CEFR = ['A0', 'A1', 'A2', 'B1', 'B1+', 'B2', 'C1'];
@@ -52,8 +49,13 @@ export function coverUrl(book: Book): string {
   return `./covers/${book.cover.replace(/\.png$/, '.webp')}`;
 }
 
-export function audioUrl(book: Book, n: number): string {
-  return `${MEDIA_BASE_URL}/audio/${book.path}/${n}.mp3`;
+/** The whole book's audio ships with the app; nothing is streamed. */
+export function bookAudioUrl(book: Book): string {
+  return `./audio/${book.id}.webm`;
+}
+
+export function lineLength(c: Caption): number {
+  return c.s != null && c.e != null ? c.e - c.s : c.d;
 }
 
 /** Normalise a clicked token into a dictionary word. */

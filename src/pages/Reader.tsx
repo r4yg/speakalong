@@ -13,10 +13,10 @@ import {
   SkipForward,
   SlidersHorizontal,
   Sparkles,
-  WifiOff,
+  VolumeX,
   X,
 } from 'lucide-react';
-import { audioUrl, CEFR, cleanWord, loadCaptions, type Book, type Caption } from '../lib/content';
+import { bookAudioUrl, CEFR, cleanWord, loadCaptions, lineLength, type Book, type Caption } from '../lib/content';
 import { useCatalog } from '../lib/useCatalog';
 import {
   addWord,
@@ -96,7 +96,7 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
   const [picked, setPicked] = useState<string | null>(null);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const preloadRef = useRef<HTMLAudioElement[]>([]);
+  const frame = useRef(0);
   const timers = useRef<number[]>([]);
   const session = useRef(0);
   const playCount = useRef(0);
@@ -107,7 +107,15 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
   const caption = captions[index];
   const last = captions.length - 1;
 
-  const getAudio = () => (audioRef.current ??= new Audio());
+  // One local audio file per book; each line is a [s, e) segment of it.
+  const getAudio = () => {
+    if (!audioRef.current) {
+      const a = new Audio(bookAudioUrl(book));
+      a.preload = 'auto';
+      audioRef.current = a;
+    }
+    return audioRef.current;
+  };
 
   const clearTimers = () => {
     timers.current.forEach((id) => {
@@ -115,6 +123,7 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
       clearInterval(id);
     });
     timers.current = [];
+    cancelAnimationFrame(frame.current);
   };
 
   const stop = useCallback(() => {
@@ -146,10 +155,8 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
     };
 
     if (st.pauseToRepeat) {
-      // Leave as much silence as the line takes to say (real audio length when known).
-      const real = audioRef.current?.duration;
-      const length = real && Number.isFinite(real) ? real : captions[i].d;
-      const seconds = Math.min(15, Math.max(1.5, (length / st.rate) * 1.1));
+      // Leave as much silence as the line takes to say.
+      const seconds = Math.min(15, Math.max(1.5, (lineLength(captions[i]) / st.rate) * 1.1));
       const end = performance.now() + seconds * 1000;
       setPhase('gap');
       setGap({ left: seconds, total: seconds });
@@ -163,7 +170,7 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
       }, 100);
       timers.current.push(tick);
     } else {
-      timers.current.push(window.setTimeout(proceed, again ? 350 : 200));
+      timers.current.push(window.setTimeout(proceed, again ? 350 : 150));
     }
   };
 
@@ -173,26 +180,36 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
     if (resetCount) playCount.current = 0;
     const audio = getAudio();
     const c = captions[i];
-    audio.onended = () => finishLine(s);
-    audio.onerror = null;
-    audio.src = audioUrl(book, c.n);
-    audio.playbackRate = settingsRef.current.rate;
     setPhase('playing');
-    let settled = false;
-    // Audio unavailable (offline, missing file or stalled): keep the rhythm silently.
+
+    // No audio for this book (e.g. a build without media): keep the rhythm silently.
     const fallback = () => {
-      if (settled || s !== session.current) return;
-      settled = true;
+      if (s !== session.current) return;
       audio.pause();
       setAudioError(true);
-      timers.current.push(window.setTimeout(() => finishLine(s), (c.d / settingsRef.current.rate) * 1000));
+      timers.current.push(window.setTimeout(() => finishLine(s), (lineLength(c) / settingsRef.current.rate) * 1000));
     };
-    timers.current.push(window.setTimeout(fallback, 10000));
+    if (c.s == null || c.e == null || audio.error) return fallback();
+
+    audio.pause();
+    audio.currentTime = c.s;
+    audio.playbackRate = settingsRef.current.rate;
+    audio.onended = () => finishLine(s);
     audio.play().then(
       () => {
-        if (s !== session.current || settled) return;
-        settled = true;
+        if (s !== session.current) return;
         setAudioError(false);
+        // Stop exactly at the end of the line's segment.
+        const watch = () => {
+          if (s !== session.current) return;
+          if (audio.currentTime >= c.e! - 0.015) {
+            audio.pause();
+            finishLine(s);
+          } else {
+            frame.current = requestAnimationFrame(watch);
+          }
+        };
+        frame.current = requestAnimationFrame(watch);
       },
       (err: DOMException) => {
         if (err?.name !== 'AbortError') fallback();
@@ -217,31 +234,26 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
 
   const step = (delta: number) => go(indexRef.current + delta, phase === 'playing' || phase === 'gap');
 
-  // Persist progress + preload the next lines whenever the line changes.
+  // Persist progress whenever the line changes.
   useEffect(() => {
     saveProgress(book.id, caption.n, captions.length, index);
-    preloadRef.current = [1, 2].flatMap((k) => {
-      const c = captions[index + k];
-      if (!c) return [];
-      const a = new Audio();
-      a.preload = 'auto';
-      a.src = audioUrl(book, c.n);
-      return [a];
-    });
-  }, [index, book, caption.n, captions]);
+  }, [index, book.id, caption.n, captions.length]);
 
   // Apply speed changes immediately.
   useEffect(() => {
     if (audioRef.current) audioRef.current.playbackRate = settings.rate;
   }, [settings.rate]);
 
-  // Stop everything on unmount.
+  // Stop everything and release the audio on unmount.
   useEffect(
     () => () => {
       session.current++;
       clearTimers();
-      audioRef.current?.pause();
-      preloadRef.current = [];
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.removeAttribute('src');
+        audioRef.current.load();
+      }
     },
     [],
   );
@@ -366,7 +378,7 @@ function Player({ book, captions, levelIndex }: { book: Book; captions: Caption[
 
             {audioError && (
               <p className="mt-8 flex items-center gap-2 rounded-xl bg-mark-soft px-4 py-3 text-sm text-mark">
-                <WifiOff className="size-4 shrink-0" />
+                <VolumeX className="size-4 shrink-0" />
                 {t.reader.audioError}
               </p>
             )}

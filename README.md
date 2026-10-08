@@ -30,7 +30,8 @@ no tracking. Your progress and saved words stay on your own computer.
   so you can shadow it out loud.
 - **Translation shown, hidden or tap-to-reveal**, and playback speed from 0.75× to 1.25×.
 - **Save words** by tapping them, add a note, look them up in a dictionary and export your list to CSV or PDF.
-- **Local-first:** everything is stored on the device. Export/import a backup file to move to another computer.
+- **Fully offline:** all 49 books and their 94 hours of audio ship inside the app. Nothing is streamed, nothing is tracked.
+- **Local-first:** progress and words are stored on the device. Export/import a backup file to move to another computer.
 - Light and dark themes, Spanish and English interface, keyboard shortcuts (Space, ←, →).
 
 ## Download
@@ -52,7 +53,7 @@ The installers are not signed with a paid developer certificate, so your system 
 - **Windows:** if SmartScreen appears, click **More info → Run anyway**.
 - **Linux:** `chmod +x SpeakAlong-*.AppImage` and run it, or install the `.deb` with `sudo apt install ./SpeakAlong-*.deb`.
 
-An internet connection is needed while listening: the audio of each line is streamed.
+The installers are around 900 MB because every book and its audio are included; after installing, no internet connection is needed.
 
 ## Run from source
 
@@ -62,6 +63,7 @@ Requires Node.js 22+.
 git clone https://github.com/r4yg/speakalong.git
 cd speakalong
 npm install
+npm run fetch-audio    # downloads the book audio (~850 MB) into public/audio/
 npm run dev            # web version at http://localhost:5173
 npm run electron:dev   # desktop app
 npm run dist           # build installers for the current OS into release/
@@ -74,17 +76,21 @@ from any sub-path.
 
 ```
 public/content/catalog.json      levels and books
-public/content/books/<id>.json   lines of each book: { n, en, es, d }
+public/content/books/<id>.json   lines of each book: { n, en, es, d, s, e }
+public/audio/<id>.webm           the whole book's audio (mono Opus), not in git
 public/covers/*.webp             book covers
 src/                             React app (Vite + Tailwind)
 electron/main.cjs                desktop shell
 ```
 
-Audio is loaded from `<VITE_MEDIA_BASE_URL>/audio/<book path>/<line number>.mp3`
-(see `.env.example`). To host your own copy of the audio, mirror that layout and set the variable at build time.
+Each book's audio is a single Opus file; every line stores its start and end time (`s`, `e`) in the book JSON and
+the reader plays that segment. The audio files are published as assets of the
+[`audio-v1` release](https://github.com/r4yg/speakalong/releases/tag/audio-v1) and `npm run fetch-audio` downloads
+them, so the repository stays small while the installers include everything.
 
-`scripts/export_content.py` regenerates the JSON content from the original PostgreSQL database. It reads only the
-book tables.
+- `scripts/export_content.py` regenerates the JSON content from the original PostgreSQL database (book tables only).
+- `scripts/build_audio.py` packs the original per-line MP3 files into the per-book Opus files and writes the line
+  timings.
 
 Releases are built by GitHub Actions: push a tag such as `v1.0.1` and the
 [release workflow](.github/workflows/release.yml) builds the macOS, Windows and Linux installers and attaches them
@@ -113,7 +119,7 @@ en tu ordenador.
 - **macOS:** clic derecho sobre la app → **Abrir** (o *Ajustes del Sistema → Privacidad y seguridad → Abrir igualmente*).
 - **Windows:** en SmartScreen, **Más información → Ejecutar de todas formas**.
 
-Necesitas conexión a internet mientras escuchas, porque el audio de cada frase se descarga al reproducirla.
+Todos los libros y sus audios vienen incluidos (≈ 900 MB): una vez instalada, la app funciona sin internet.
 
 <p align="center">
   <img src="docs/library-light.png" width="820" alt="Biblioteca de SpeakAlong" />

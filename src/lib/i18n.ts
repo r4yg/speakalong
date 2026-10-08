@@ -63,7 +63,7 @@ const es = {
     note: 'Nota (opcional)',
     notePh: 'Significado, ejemplo, pista…',
     dictionary: 'Ver en diccionario',
-    audioError: 'No se pudo cargar el audio de esta frase. Revisa tu conexión a internet.',
+    audioError: 'No se encontró el audio de este libro. La lectura sigue en silencio.',
     finished: '¡Terminaste el libro!',
     finishedText: 'Excelente trabajo. Elige otro libro para seguir practicando.',
     shortcuts: 'Espacio: play/pausa · ←/→: frase anterior/siguiente',
@@ -92,7 +92,7 @@ const es = {
     dark: 'Oscuro',
     data: 'Tus datos',
     dataText:
-      'SpeakAlong no tiene cuentas ni servidores: tu progreso y tus palabras se guardan solo en este equipo. Puedes exportarlos para tener una copia o pasarlos a otro ordenador.',
+      'SpeakAlong no tiene cuentas ni servidores y funciona sin internet: tu progreso y tus palabras se guardan solo en este equipo. Puedes exportarlos para tener una copia o pasarlos a otro ordenador.',
     export: 'Exportar copia',
     import: 'Importar copia',
     imported: 'Copia importada correctamente.',
@@ -104,7 +104,7 @@ const es = {
     aboutText:
       'SpeakAlong es libre y de código abierto. Nació como un servicio de pago y hoy lo liberamos para que cualquiera pueda aprender inglés gratis.',
     source: 'Código fuente en GitHub',
-    audioNote: 'El audio de los libros se descarga por internet mientras escuchas.',
+    audioNote: 'Todos los libros y sus audios vienen incluidos: funciona sin conexión a internet.',
   },
 };
 
@@ -173,7 +173,7 @@ const en: Dict = {
     note: 'Note (optional)',
     notePh: 'Meaning, example, hint…',
     dictionary: 'Look it up',
-    audioError: 'The audio for this line could not be loaded. Check your internet connection.',
+    audioError: 'The audio for this book is missing. Reading continues silently.',
     finished: 'You finished the book!',
     finishedText: 'Great work. Pick another book to keep practising.',
     shortcuts: 'Space: play/pause · ←/→: previous/next line',
@@ -202,7 +202,7 @@ const en: Dict = {
     dark: 'Dark',
     data: 'Your data',
     dataText:
-      'SpeakAlong has no accounts and no servers: your progress and words are stored only on this computer. Export them to keep a copy or move them to another machine.',
+      'SpeakAlong has no accounts, no servers and works offline: your progress and words are stored only on this computer. Export them to keep a copy or move them to another machine.',
     export: 'Export backup',
     import: 'Import backup',
     imported: 'Backup imported.',
@@ -214,7 +214,7 @@ const en: Dict = {
     aboutText:
       'SpeakAlong is free and open source. It started as a paid service and we have now released it so anyone can learn English for free.',
     source: 'Source code on GitHub',
-    audioNote: 'Book audio streams over the internet while you listen.',
+    audioNote: 'All books and their audio are included: it works fully offline.',
   },
 };
 
