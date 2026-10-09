@@ -53,7 +53,7 @@ The installers are not signed with a paid developer certificate, so your system 
 - **Windows:** if SmartScreen appears, click **More info → Run anyway**.
 - **Linux:** `chmod +x SpeakAlong-*.AppImage` and run it, or install the `.deb` with `sudo apt install ./SpeakAlong-*.deb`.
 
-The installers are around 900 MB because every book and its audio are included; after installing, no internet connection is needed.
+The installers are around 1 GB because every book and its audio are included; after installing, no internet connection is needed.
 
 ## Run from source
 
@@ -119,7 +119,7 @@ en tu ordenador.
 - **macOS:** clic derecho sobre la app → **Abrir** (o *Ajustes del Sistema → Privacidad y seguridad → Abrir igualmente*).
 - **Windows:** en SmartScreen, **Más información → Ejecutar de todas formas**.
 
-Todos los libros y sus audios vienen incluidos (≈ 900 MB): una vez instalada, la app funciona sin internet.
+Todos los libros y sus audios vienen incluidos (≈ 1 GB): una vez instalada, la app funciona sin internet.
 
 <p align="center">
   <img src="docs/library-light.png" width="820" alt="Biblioteca de SpeakAlong" />
