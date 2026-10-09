@@ -14,6 +14,7 @@ Requires ffmpeg on PATH.
 """
 import argparse
 import json
+import os
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -24,6 +25,7 @@ CONTENT = ROOT / "public" / "content"
 OUT = ROOT / "public" / "audio"
 RATE = 48000  # Opus native rate
 BYTES_PER_SAMPLE = 2  # s16le mono
+DECODERS = os.cpu_count() or 4
 
 
 def decode(path: Path) -> bytes | None:
@@ -54,15 +56,17 @@ def build_book(book: dict, src: Path, bitrate: str) -> tuple[int, int]:
     )
     samples = 0
     missing = 0
-    for c in data["captions"]:
-        chunk = decode(src / "audio" / book["path"] / f"{c['n']}.mp3")
-        if chunk is None:
-            missing += 1
-            chunk = bytes(int(c["d"] * RATE) * BYTES_PER_SAMPLE)
-        c["s"] = round(samples / RATE, 3)
-        samples += len(chunk) // BYTES_PER_SAMPLE
-        c["e"] = round(samples / RATE, 3)
-        enc.stdin.write(chunk)
+    # Decode lines in parallel (ffmpeg start-up dominates), write them in order.
+    with ThreadPoolExecutor(DECODERS) as pool:
+        chunks = pool.map(lambda c: decode(src / "audio" / book["path"] / f"{c['n']}.mp3"), data["captions"])
+        for c, chunk in zip(data["captions"], chunks):
+            if chunk is None:
+                missing += 1
+                chunk = bytes(int(c["d"] * RATE) * BYTES_PER_SAMPLE)
+            c["s"] = round(samples / RATE, 3)
+            samples += len(chunk) // BYTES_PER_SAMPLE
+            c["e"] = round(samples / RATE, 3)
+            enc.stdin.write(chunk)
     enc.stdin.close()
     if enc.wait() != 0:
         raise RuntimeError(f"encoding book {book['id']} failed")
@@ -74,7 +78,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("src", type=Path)
     ap.add_argument("--bitrate", default="20k")
-    ap.add_argument("--jobs", type=int, default=6)
+    ap.add_argument("--jobs", type=int, default=2)
     ap.add_argument("--only", default="")
     args = ap.parse_args()
 

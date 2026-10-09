@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - run: python3 scripts/download_media.py /tmp/media "${{ inputs.source }}"
-      - run: python3 scripts/build_audio.py /tmp/media --jobs 4
+      - run: python3 scripts/build_audio.py /tmp/media --jobs 2
       - name: Publish audio release
         env:
           GH_TOKEN: ${{ github.token }}
